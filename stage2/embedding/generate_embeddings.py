@@ -72,10 +72,10 @@ def main():
     smile_dict = torch.load(SMILE_EMBED_PATH, weights_only=True)
     protein_dict = torch.load(PROTEIN_EMBED_PATH, weights_only=True)
 
-    print(f"  Projecting {len(smile_dict)} SMILES embeddings...")
+    print(f"Projecting {len(smile_dict)} SMILES embeddings...")
     new_smile_embs = project_embeddings(struct_model, struct_model.drug_projector, smile_dict, device)
 
-    print(f"  Projecting {len(protein_dict)} protein embeddings...")
+    print(f"Projecting {len(protein_dict)} protein embeddings...")
     new_protein_embs = project_embeddings(struct_model, struct_model.target_projector, protein_dict, device)
 
     torch.save(new_smile_embs, os.path.join(OUTPUT_DIR, 'contrastive_new_smile_embeddings.pt'))
@@ -91,21 +91,21 @@ def main():
     compound_img_dict = torch.load(COMPOUND_IMAGE_EMBED_PATH, weights_only=True)
     crispr_img_dict = torch.load(CRISPR_IMAGE_EMBED_PATH, weights_only=True)
 
-    print(f"  Projecting {len(compound_img_dict)} compound image embeddings...")
+    print(f"Projecting {len(compound_img_dict)} compound image embeddings...")
     new_img_drug_embs = project_embeddings(img_model, img_model.drug_projector, compound_img_dict, device)
 
-    print(f"  Projecting {len(crispr_img_dict)} CRISPR image embeddings...")
+    print(f"Projecting {len(crispr_img_dict)} CRISPR image embeddings...")
     new_img_protein_embs = project_embeddings(img_model, img_model.target_projector, crispr_img_dict, device)
 
     torch.save(new_img_drug_embs, os.path.join(OUTPUT_DIR, 'contrastive_new_img_drug_embeddings.pt'))
     torch.save(new_img_protein_embs, os.path.join(OUTPUT_DIR, 'contrastive_new_img_protein_embeddings.pt'))
-    print("  Saved image projected embeddings.")
+    print(" Saved image projected embeddings.")
 
     print("\nAll embeddings generated successfully.")
-    print(f"  SMILE:          {len(new_smile_embs)} entries, dim={list(new_smile_embs.values())[0].shape}")
-    print(f"  Protein:        {len(new_protein_embs)} entries, dim={list(new_protein_embs.values())[0].shape}")
-    print(f"  Compound image: {len(new_img_drug_embs)} entries, dim={list(new_img_drug_embs.values())[0].shape}")
-    print(f"  CRISPR image:   {len(new_img_protein_embs)} entries, dim={list(new_img_protein_embs.values())[0].shape}")
+    print(f"SMILE: {len(new_smile_embs)} entries, dim={list(new_smile_embs.values())[0].shape}")
+    print(f"Protein: {len(new_protein_embs)} entries, dim={list(new_protein_embs.values())[0].shape}")
+    print(f"Compound image: {len(new_img_drug_embs)} entries, dim={list(new_img_drug_embs.values())[0].shape}")
+    print(f"CRISPR image: {len(new_img_protein_embs)} entries, dim={list(new_img_protein_embs.values())[0].shape}")
 
 
 if __name__ == '__main__':
