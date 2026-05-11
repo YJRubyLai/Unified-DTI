@@ -1,0 +1,19 @@
+# Large embedding/output files — stored on OneDrive
+**/embedding/*.pt
+unified_embeddings.pt
+
+# Editor/OS files
+.Rhistory
+*.docx
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# DS_Store
+.DS_Store
+
+# Logs
+*.log
