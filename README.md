@@ -54,9 +54,9 @@ The project is organized into three independent training stages:
 
 | Stage | Purpose |
 |---|---|
-| `stage1.1_structure` | Learns structure-based molecular representations |
-| `stage1.2_image` | Learns morphology-based cellular representations |
-| `stage2` | Aligns structure and image embeddings into a unified DTI space |
+| `src/stage1.1_structure` | Learns structure-based molecular representations |
+| `src/stage1.2_image` | Learns morphology-based cellular representations |
+| `src/stage2` | Aligns structure and image embeddings into a unified DTI space |
 
 Each stage is self-contained and independently trainable.
 
@@ -113,7 +113,7 @@ Trains on:
 Both modalities are projected into a shared 512-dimensional embedding space using InfoNCE loss.
 
 ```bash
-cd stage1.1_structure/model
+cd src/stage1.1_structure/model
 python train.py
 ```
 
@@ -129,7 +129,7 @@ Trains on:
 Both modalities are projected into a shared 512-dimensional embedding space using InfoNCE loss.
 
 ```bash
-cd stage1.2_image/model
+cd src/stage1.2_image/model
 python train.py
 ```
 
@@ -140,17 +140,31 @@ python train.py
 First generate projected embeddings from the trained Stage 1 models:
 
 ```bash
-python stage2/embedding/generate_embeddings.py
+python src/stage2/embedding/generate_embeddings.py
 ```
 
 Then train the Stage 2 alignment model:
 
 ```bash
-cd stage2/model
+cd src/stage2/model
 python train.py
 ```
 
 Stage 2 uses multi-positive InfoNCE loss, where drug-target pairs sharing the same interaction identity are treated as positives.
+
+---
+
+## Tutorial
+
+Step-by-step Jupyter notebooks are provided in `tutorial/`:
+
+| Notebook | Description |
+|---|---|
+| `tutorial/structure.ipynb` | Stage 1.1 — structure-based contrastive learning (ChemBERTa-2 + ESM-2) |
+| `tutorial/Image.ipynb` | Stage 1.2 — image-based contrastive learning (Cell Painting + CRISPR) |
+| `tutorial/Unified.ipynb` | Stage 2 — unified multimodal alignment with multi-positive InfoNCE |
+
+Each notebook imports directly from the corresponding `src/` module and walks through configuration, training, inference, and visualization.
 
 ---
 

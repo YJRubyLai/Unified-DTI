@@ -14,7 +14,6 @@ class StructureImageDataset(Dataset):
 
     def __init__(self, csv_path, drug_struct_path, drug_img_path, prot_struct_path, prot_img_path):
         self.data = pd.read_csv(csv_path)
-        print(f"Loaded CSV with {len(self.data)} rows.")
 
         self.drug_structure = torch.load(drug_struct_path, weights_only=True)
         self.drug_image = torch.load(drug_img_path, weights_only=True)
